@@ -50,19 +50,70 @@ Programming is giving computers step-by-step instructions to solve problems. Thi
 
 ## Hands-On Activities
 
+### Getting Ready to Code
+
+Let's start simple! For your very first program, we'll use the **Browser Console** - it's built into every web browser and gives you instant feedback.
+
+#### How to Open Browser Console:
+1. Open any web browser (Chrome, Firefox, Safari, Edge)
+2. Open the Console using **one of these methods**:
+   - Press **F12** key (try **Fn + F12** if F12 alone doesn't work)
+   - **OR** Right-click anywhere on the page → "Inspect" → click "Console" tab
+   - **OR** Use keyboard shortcut: **Ctrl + Shift + I** (Windows/Linux) or **Cmd + Opt + I** (Mac)
+3. You should see a panel open with a blinking cursor after a `>` symbol
+4. This is where you'll type your JavaScript code!
+
+**✅ Success Check:** If you see a console window with a `>` prompt, you're ready to code!
+
+---
+
 ### Activity 1: Your First Program (30 minutes)
-Create a program that introduces you:
+
+**We'll use the Browser Console for this activity - it's perfect for beginners!**
+
+**Setup:**
+1. Open your browser console (follow instructions above)
+2. You should see a `>` prompt where you can type
+
+**Your Task:** Create a program that introduces you:
 ```javascript
 // Your first JavaScript program
-let name = "Your Name";
-let favoriteColor = "blue";
+let name = "Your Name";  // Replace with your actual name
+let favoriteColor = "blue";  // Replace with your favorite color
 
 console.log("Hello! My name is " + name);
 console.log("My favorite color is " + favoriteColor);
 ```
 
+**How to Run:**
+1. Type each line in the console and press **Enter** after each line
+2. **OR** copy all the code at once and paste it into the console, then press **Enter**
+3. Watch the results appear immediately below your code!
+
+**Expected Output:**
+```
+Hello! My name is [Your Name]
+My favorite color is [Your Color]
+```
+
+**✅ Success Check:** If you see your personalized message, congratulations! You just wrote and ran your first JavaScript program!
+
 ### Activity 2: Calculator Functions (45 minutes)
-Build simple math functions:
+
+**Time to Level Up: Using VS Code!**
+
+Now that you've written your first code in the browser console, let's use a professional code editor. This will prepare you for building real applications!
+
+**Setup Instructions:**
+1. Open **Visual Studio Code**
+2. Create a new file: **File → New File** (or **Ctrl+N**)
+3. Save the file: **File → Save As** and name it `calculator.js`
+4. Write your code in this file
+5. To run your code:
+   - Open Terminal in VS Code: **Terminal → New Terminal**
+   - Type: `node calculator.js` and press **Enter**
+
+**Your Task:** Build simple math functions:
 ```javascript
 function add(a, b) {
     return a + b;
