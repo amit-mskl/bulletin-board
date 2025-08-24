@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>/task Modal UI - Bulletin Board</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .modal-subtitle {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .required {
+            color: #ff4444;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .priority-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .priority-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .priority-btn:hover {
+            border-color: #667eea;
+        }
+
+        .priority-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .priority-btn.low.active {
+            border-color: #4caf50;
+            background: #4caf50;
+        }
+
+        .priority-btn.high.active {
+            border-color: #ff5722;
+            background: #ff5722;
+        }
+
+        .file-upload {
+            border: 2px dashed #d0d0d0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #fafafa;
+        }
+
+        .file-upload:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .file-upload.dragover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .file-upload-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #999;
+        }
+
+        .file-upload-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .uploaded-files {
+            margin-top: 10px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            background: #f0f4ff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+
+        .file-item-icon {
+            margin-right: 8px;
+        }
+
+        .file-item-name {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .file-item-remove {
+            color: #ff4444;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .modal-footer {
+            background: #f8f9fa;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .context-info {
+            background: #e8f5e8;
+            border-left: 4px solid #4caf50;
+            padding: 10px 15px;
+            border-radius: 0 6px 6px 0;
+            font-size: 13px;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+
+        .smart-suggestions {
+            background: #fff3e0;
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #e65100;
+        }
+
+        .suggestion-tag {
+            background: #ffcc80;
+            color: #bf360c;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin: 2px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .suggestion-tag:hover {
+            background: #ffb74d;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">📋 Create New Task</div>
+            <div class="modal-subtitle">Track your work and celebrate wins together</div>
+        </div>
+        
+        <div class="modal-body">
+            <div class="context-info">
+                📍 Creating in: <strong>#dev-team</strong> • Auto-linked to this conversation
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Task Title <span class="required">*</span></label>
+                <input type="text" class="form-input" placeholder="e.g. Fix authentication bug in login flow" id="taskTitle">
+                <div class="smart-suggestions">
+                    💡 Smart suggestions: 
+                    <span class="suggestion-tag" onclick="fillSuggestion('OAuth Integration')">OAuth Integration</span>
+                    <span class="suggestion-tag" onclick="fillSuggestion('API Testing')">API Testing</span>
+                    <span class="suggestion-tag" onclick="fillSuggestion('Bug Fix')">Bug Fix</span>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Due Date</label>
+                    <input type="date" class="form-input" id="dueDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Priority</label>
+                    <div class="priority-options">
+                        <button class="priority-btn low" onclick="setPriority('low')">🟢 Low</button>
+                        <button class="priority-btn medium active" onclick="setPriority('medium')">🟡 Medium</button>
+                        <button class="priority-btn high" onclick="setPriority('high')">🔴 High</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Description & Notes</label>
+                <textarea class="form-input form-textarea" placeholder="Add any context, requirements, or notes..." id="description"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Attachments</label>
+                <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+                    <div class="file-upload-icon">📎</div>
+                    <div class="file-upload-text">
+                        <strong>Click to upload</strong> or drag files here<br>
+                        <small>Screenshots, specs, mockups, etc.</small>
+                    </div>
+                    <input type="file" id="fileInput" multiple style="display: none;">
+                </div>
+                <div class="uploaded-files" id="uploadedFiles"></div>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="createTask()">Create Task</button>
+        </div>
+    </div>
+
+    <script>
+        // Set default due date to next Friday
+        function setDefaultDate() {
+            const today = new Date();
+            const daysUntilFriday = 5 - today.getDay();
+            const nextFriday = new Date(today);
+            nextFriday.setDate(today.getDate() + (daysUntilFriday > 0 ? daysUntilFriday : daysUntilFriday + 7));
+            
+            document.getElementById('dueDate').value = nextFriday.toISOString().split('T')[0];
+        }
+
+        let currentPriority = 'medium';
+        let uploadedFiles = [];
+
+        function setPriority(priority) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.priority-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to selected button
+            document.querySelector(`.priority-btn.${priority}`).classList.add('active');
+            currentPriority = priority;
+        }
+
+        function fillSuggestion(suggestion) {
+            document.getElementById('taskTitle').value = suggestion;
+            document.getElementById('taskTitle').focus();
+        }
+
+        function createTask() {
+            const title = document.getElementById('taskTitle').value.trim();
+            const dueDate = document.getElementById('dueDate').value;
+            const description = document.getElementById('description').value.trim();
+            
+            if (!title) {
+                alert('Please enter a task title');
+                return;
+            }
+            
+            // Simulate task creation
+            alert(`✅ Task Created!\n\nTitle: ${title}\nDue: ${dueDate || 'No due date'}\nPriority: ${currentPriority}\nAttachments: ${uploadedFiles.length} files`);
+            closeModal();
+        }
+
+        function closeModal() {
+            document.body.style.display = 'none';
+        }
+
+        // File upload handling
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                uploadedFiles.push(file);
+                addFileToDisplay(file);
+            });
+        }
+
+        function addFileToDisplay(file) {
+            const container = document.getElementById('uploadedFiles');
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <span class="file-item-icon">📄</span>
+                <span class="file-item-name">${file.name}</span>
+                <span class="file-item-remove" onclick="removeFile('${file.name}')">✕</span>
+            `;
+            container.appendChild(fileItem);
+        }
+
+        function removeFile(fileName) {
+            uploadedFiles = uploadedFiles.filter(file => file.name !== fileName);
+            // Remove from display
+            event.target.parentElement.remove();
+        }
+
+        // Drag and drop
+        const fileUpload = document.querySelector('.file-upload');
+        
+        fileUpload.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUpload.classList.add('dragover');
+        });
+        
+        fileUpload.addEventListener('dragleave', () => {
+            fileUpload.classList.remove('dragover');
+        });
+        
+        fileUpload.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUpload.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        // Initialize
+        setDefaultDate();
+    </script>
+</body>
+</html>

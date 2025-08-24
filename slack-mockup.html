@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Bulletin Board - Slack Mockup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1d29;
+            color: #d1d2d3;
+        }
+
+        .slack-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background-color: #3f0e40;
+            padding: 20px 0;
+        }
+
+        .workspace-name {
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid #522653;
+        }
+
+        .channels {
+            padding: 20px;
+        }
+
+        .channel {
+            padding: 5px 0;
+            color: #b9b9b9;
+            cursor: pointer;
+        }
+
+        .channel.active {
+            color: white;
+            font-weight: bold;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #1a1d29;
+        }
+
+        .channel-header {
+            background-color: #1a1d29;
+            padding: 20px;
+            border-bottom: 1px solid #36393f;
+        }
+
+        .channel-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            margin-right: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .bot-avatar {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-header {
+            margin-bottom: 4px;
+        }
+
+        .username {
+            font-weight: bold;
+            color: white;
+            margin-right: 8px;
+        }
+
+        .bot-username {
+            color: #38ef7d;
+        }
+
+        .timestamp {
+            font-size: 12px;
+            color: #72767d;
+        }
+
+        .message-text {
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .bot-response {
+            background-color: #2f3136;
+            border: 1px solid #38ef7d;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 8px;
+        }
+
+        .task-card {
+            background-color: #40444b;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 8px 0;
+            border-left: 3px solid #5865f2;
+        }
+
+        .task-title {
+            font-weight: bold;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .task-meta {
+            font-size: 12px;
+            color: #b9bbbe;
+        }
+
+        .emoji {
+            font-size: 18px;
+            margin-right: 6px;
+        }
+
+        .celebration {
+            background: linear-gradient(90deg, #ff6b6b, #ffa726);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        .reminder-card {
+            background-color: #ffa726;
+            color: #1a1d29;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .reminder-section {
+            margin: 10px 0;
+        }
+
+        .reminder-section h4 {
+            margin-bottom: 8px;
+        }
+
+        .user-list {
+            margin-left: 10px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            80% { transform: translateY(-5px); }
+        }
+
+        .celebration-emoji {
+            animation: bounce 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="slack-container">
+        <div class="sidebar">
+            <div class="workspace-name">TechEd Team</div>
+            <div class="channels">
+                <div class="channel active"># dev-team</div>
+                <div class="channel"># general</div>
+                <div class="channel"># marketing</div>
+                <div class="channel"># random</div>
+                <div class="channel">🤖 bulletin-board</div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="channel-header">
+                <div class="channel-title"># dev-team</div>
+            </div>
+            
+            <div class="messages">
+                <!-- Natural Task Creation -->
+                <div class="message">
+                    <div class="avatar">SC</div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="username">Sarah Chen</span>
+                            <span class="timestamp">Today at 2:34 PM</span>
+                        </div>
+                        <div class="message-text">
+                            Starting work on the new user authentication system. Going to tackle OAuth integration first 🔐
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Bot Response -->
+                <div class="message">
+                    <div class="avatar bot-avatar">🤖</div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="username bot-username">BulletinBot</span>
+                            <span class="timestamp">Today at 2:35 PM</span>
+                        </div>
+                        <div class="bot-response">
+                            <div class="message-text">✅ Got it! I've tracked this as:</div>
+                            <div class="task-card">
+                                <div class="task-title">📋 OAuth Integration - User Authentication System</div>
+                                <div class="task-meta">
+                                    👤 Assigned: @Sarah Chen<br>
+                                    📅 Started: Aug 24, 2024
+                                </div>
+                            </div>
+                            <div class="message-text">React with 👍 when complete or 🚨 if you hit blockers!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Update -->
+                <div class="message">
+                    <div class="avatar">MR</div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="username">Mike Rodriguez</span>
+                            <span class="timestamp">Today at 3:15 PM</span>
+                        </div>
+                        <div class="message-text">
+                            Fixed that nasty database connection bug finally! 🐛➡️✅<br>
+                            Took way longer than expected but users should stop seeing timeouts
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Celebration Response -->
+                <div class="message">
+                    <div class="avatar bot-avatar">🤖</div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="username bot-username">BulletinBot</span>
+                            <span class="timestamp">Today at 3:16 PM</span>
+                        </div>
+                        <div class="bot-response">
+                            <div class="message-text">
+                                <span class="celebration-emoji">🔥</span> Nice work @mike! Added to your wins:
+                            </div>
+                            <div class="task-card">
+                                <div class="task-title">✅ Database Connection Bug Fix - Resolved user timeouts</div>
+                                <div class="task-meta">⏱️ Status: Complete (took longer than expected)</div>
+                            </div>
+                            <div class="message-text celebration">
+                                This will show up in tomorrow's celebration section! <span class="celebration-emoji">🎊</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Friday Reminder -->
+                <div class="message">
+                    <div class="avatar bot-avatar">🤖</div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="username bot-username">BulletinBot</span>
+                            <span class="timestamp">Friday at 9:00 AM</span>
+                        </div>
+                        <div class="reminder-card">
+                            <div style="font-weight: bold; font-size: 16px; margin-bottom: 10px;">
+                                🔔 Friday Check-in Reminder
+                            </div>
+                            <div>Hey team! Meeting in 1 hour. Here's what I've collected:</div>
+                            
+                            <div class="reminder-section">
+                                <h4>✅ Ready to share:</h4>
+                                <div class="user-list">
+                                    • @sarah - OAuth Integration progress<br>
+                                    • @mike - Database bug fix victory
+                                </div>
+                            </div>
+                            
+                            <div class="reminder-section">
+                                <h4>❓ Missing updates:</h4>
+                                <div class="user-list">
+                                    • @alex - API redesign project<br>
+                                    • @jenny - Mobile app testing
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 10px;">
+                                @alex @jenny - quick update? Just drop a line about your week! 👆
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate typing indicator
+            setTimeout(() => {
+                const celebrationEmojis = document.querySelectorAll('.celebration-emoji');
+                celebrationEmojis.forEach(emoji => {
+                    emoji.style.animation = 'bounce 1s ease-in-out infinite';
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
